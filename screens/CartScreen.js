@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, ScrollView,FlatList, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView,FlatList, View } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Entypo} from '@expo/vector-icons';
 import {Colors} from '../constants/Colors';
@@ -52,7 +52,7 @@ const CartScreen = () => {
     )
 
     return (
-        <ScrollView >
+        <SafeAreaView >
             {
                 transformedCartItems.length!=0?
                 <View>
@@ -71,15 +71,15 @@ const CartScreen = () => {
                     {total}
                 </View>
                  : 
-                    <View style={{flex:1,justifyContent:'center',alignItems:'center',margin:15}}>
+                    <View style={{justifyContent:'center',alignContent:'center',alignItems:'center',margin:15}}>
                         <Entypo name='emoji-sad' color={Colors.accent3} size={100}/>
-                        <Text style={{fontSize:30,fontWeight:200,textAlign:'center'}}>
-                            Sorry! There are no items in the cart.
+                        <Text style={{fontSize:30,fontWeight:'bold',textAlign:'center'}}>
+                            Sorry!{ '\n' }There are no items in the cart.
                         </Text>
                     </View>
             }
             
-        </ScrollView>
+        </SafeAreaView>
         
     )
 }

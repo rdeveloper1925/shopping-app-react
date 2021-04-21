@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { ScrollView, StyleSheet, FlatList, View, Button, Alert } from 'react-native';
+import { ScrollView, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import ProductCard from '../components/Card';
 import { addToCart } from '../store/actions/CartActions';
 import { Snackbar } from 'react-native-paper';
@@ -19,11 +19,9 @@ const ProductsScreen = ({navigation}) => {
 
     const addToCartHandler=(product)=>{
         dispatch(addToCart(product));
-        alert('Item '+product.title+" Has been added");
-        <Snackbar visible={true} title={product.title}/>
     }
     return (
-        <ScrollView>
+        <SafeAreaView>
             <FlatList
                 data={products}
                 renderItem={
@@ -43,7 +41,7 @@ const ProductsScreen = ({navigation}) => {
                 }
                 keyExtractor={(item)=>item.id}
             />
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 

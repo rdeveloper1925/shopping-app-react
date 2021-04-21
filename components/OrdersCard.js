@@ -7,7 +7,6 @@ import {Colors} from '../constants/Colors';
 const OrdersCard = (props) => {
     const [expanded, setExpanded] = useState(false);
     const titleText=<Text>Order#: {props.id} {"\n"}{props.orderDate}</Text>;
-    console.log(props," props in card")
     const handlePress = () => setExpanded(!expanded);
     return (
         <Card style={styles.container}>
@@ -51,7 +50,6 @@ const OrdersCard = (props) => {
 export default OrdersCard
 
 const TheItem=props=>{
-    console.log(props)
     return (
         <View style={styles.itemContainer}>
             <View style={styles.info}>
@@ -61,7 +59,7 @@ const TheItem=props=>{
                 <Text style={styles.ttl2}>{props.quantity} pcs</Text>
             </View>
             <View style={{alignItems:'center',justifyContent:'center'}}>
-                <Text style={styles.amount}>$ {props.sum}</Text>
+                <Text style={styles.amount}>$ {props.sum.toFixed(2)}</Text>
             </View>
         </View>
     )

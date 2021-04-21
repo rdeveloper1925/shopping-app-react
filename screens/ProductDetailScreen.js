@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Colors} from '../constants/Colors'
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView,SafeAreaView } from 'react-native';
 import {Button} from 'react-native-paper';
 import * as cartActions from '../store/actions/CartActions';
 
@@ -11,7 +11,7 @@ const ProductDetailScreen = (props) => {
     
     const dispatch=useDispatch();
     return (
-        <ScrollView>
+        <SafeAreaView>
             <View>
                 <Image style={{width:'100%',height:300}} source={product.imageUrl} />
             </View>
@@ -21,7 +21,7 @@ const ProductDetailScreen = (props) => {
                 <Text style={{marginBottom:10,textAlign:'center',fontSize:16}}>{product.description}</Text>
                 <Button onPress={()=>dispatch(cartActions.addToCart(product))} color={Colors.accent3} mode="contained" icon='cart'>Add to Cart</Button>
             </View>
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 

@@ -1,16 +1,15 @@
 import React from 'react'
 import {useSelector} from 'react-redux';
-import { StyleSheet, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, FlatList, View, SafeAreaView } from 'react-native';
 import OrdersCard from '../components/OrdersCard';
 
 const OrdersScreen = () => {
     const orders = useSelector(state => state.ordersSlice.orders);
-    console.log(orders,'orders');
     return (
-        <ScrollView style={styles.container}>
+        <SafeAreaView>
             <FlatList
                 data={orders}
-                keyExtractor={item=>item.id}
+                keyExtractor={item=>item.id.toString()}
                 renderItem={
                     itemData=>
                         <OrdersCard
@@ -21,7 +20,7 @@ const OrdersScreen = () => {
                         />
                 }
             />
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 
