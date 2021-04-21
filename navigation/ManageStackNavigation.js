@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
 import {Colors} from '../constants/Colors';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
 import ManageProductsScreen from '../screens/ManageProductsScreen';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton';
@@ -11,7 +11,7 @@ const ManageStackNavigation = ({navigation}) => {
     const ManageStack=createStackNavigator();
     return (
         <ManageStack.Navigator screenOptions={{headerStyle:styles.headerStyle,headerTintColor:'white'}}>
-            <ManageStack.Screen name="Manage Products" component={ManageProductsScreen} options={{
+            <ManageStack.Screen name="User Products" component={ManageProductsScreen} options={{
                 headerLeft:()=>(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                         <Item iconName='file-tray-stacked' title="Drawer" color="white" onPress={()=>navigation.toggleDrawer()}/>
@@ -19,11 +19,15 @@ const ManageStackNavigation = ({navigation}) => {
                 ),
                 headerRight:()=>(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                        <Item iconName='add-circle-sharp' title="Add Product" color='white' onPress={()=>navigation.navigate('Add Products')}/>
+                        <Item iconName='add-circle-sharp' title="Add Product" color='white' onPress={()=>navigation.navigate('Add Products',{itemTitle:"Add New Product"})}/>
                     </HeaderButtons>
                 )
             }}/>
-            <ManageStack.Screen name='Add Products' component={AddProductsScreen}/>
+            <ManageStack.Screen name='Add Products' component={AddProductsScreen} options={
+                ({route})=>({
+                    headerTitle:route.params.itemTitle
+                })
+            }/>
         </ManageStack.Navigator>
     )
 }

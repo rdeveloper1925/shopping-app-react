@@ -1,11 +1,24 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React  from 'react';
+import {useSelector} from 'react-redux';
+import { StyleSheet, Text, FlatList } from 'react-native'
+import ManageCard from '../components/ManageCard'
 
-const ManageProductsScreen = () => {
+const ManageProductsScreen = ({navigation}) => {
+    const userProducts = useSelector(state => state.productsSlice.userProducts);
+    console.log(userProducts)
     return (
-        <View>
-            <Text>THIS IS THE MANAGE PRODUCTS SCREEN</Text>
-        </View>
+        <FlatList
+            data={userProducts}
+            keyExtractor={item=>item.id}
+            renderItem={
+                itemData=>(
+                    <ManageCard
+                        product={itemData.item}
+                        navigation={navigation}
+                    />
+                )
+            }
+        />
     )
 }
 
