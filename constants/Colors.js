@@ -1,0 +1,17 @@
+export const Colors={
+    accent1:'#F72585',
+    primary1:'#B5179E',
+    secondary2:'#7209B7',
+    col4:'#560BAD',
+    col5: '#480CA8',
+    primary2:'#3A0CA3',
+    col7: '#3F37C9',
+    col8:'#4361EE',
+    textPrimary1:'#4895EF',
+    textPrimary2:'#4CC9F0',
+    accent2:'#5F0F40',
+    accent3:'#9A031E',
+    warning1:'#FB8B24',
+    warning2:'#E36414',
+    secondary:'#0F4C5C',
+}
