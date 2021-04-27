@@ -6,6 +6,7 @@ import ManageProductsScreen from '../screens/ManageProductsScreen';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 import AddProductsScreen from '../screens/AddProductsScreen';
+import EditProductScreen from '../screens/EditProductScreen';
 
 const ManageStackNavigation = ({navigation}) => {
     const ManageStack=createStackNavigator();
@@ -14,7 +15,7 @@ const ManageStackNavigation = ({navigation}) => {
             <ManageStack.Screen name="User Products" component={ManageProductsScreen} options={{
                 headerLeft:()=>(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                        <Item iconName='file-tray-stacked' title="Drawer" color="white" onPress={()=>navigation.toggleDrawer()}/>
+                        <Item iconName='menu' title="Drawer" color="white" onPress={()=>navigation.toggleDrawer()}/>
                     </HeaderButtons>
                 ),
                 headerRight:()=>(
@@ -28,6 +29,13 @@ const ManageStackNavigation = ({navigation}) => {
                     headerTitle:route.params.itemTitle
                 })
             }/>
+
+            <ManageStack.Screen name='Edit Product' component={EditProductScreen} options={
+                ({route})=>({
+                    headerTitle:route.params.itemTitle
+                })
+            }/>
+
         </ManageStack.Navigator>
     )
 }

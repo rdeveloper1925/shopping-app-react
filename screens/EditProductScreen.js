@@ -4,29 +4,19 @@ import {useDispatch} from 'react-redux';
 import { TextInput,Button } from 'react-native-paper';
 import { Colors } from '../constants/Colors';
 import {Entypo} from '@expo/vector-icons';
-import {Product} from '../models/Products';
-import { addProduct } from '../store/actions/ProductActions';
+import {  editProduct } from '../store/actions/ProductActions';
 
-const AddProductsScreen = (props) => {
+const EditProductScreen = (props) => {
     const product=props.route.params.product;
-    //id,ownerId,imageUrl,title,description,price
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState(product.title);
+    const [price, setPrice] = useState(product.price);
+    const [description, setDescription] = useState(product.description);
 
     const dispatch=useDispatch();
 
-    const submitHandler=()=>{
-        let product=new Product(
-            "p"+new Date().getMilliseconds(),
-            "u1",
-            title,
-            require('../assets/img/unnamed.png'),
-            description,
-            price
-        );
-        dispatch(addProduct(product));
-        alert('Product added successfully!!');
+    const saveEditsHandler=()=>{
+        dispatch(editProduct(title,price,description,product.id));
+        alert('Product Edited successfully!!');
         props.navigation.navigate("User Products");
     }
 
@@ -41,14 +31,14 @@ const AddProductsScreen = (props) => {
             <KeyboardAvoidingView>
                 <TextInput  mode="outlined" style={styles.input} label='Description' value={description} onChangeText={value=>setDescription(value)} numberOfLines={3} />
             </KeyboardAvoidingView>
-            <Button mode="contained" color={Colors.warning1} icon={()=><Entypo name='save' size={14} color='white'/>} style={styles.button} onPress={submitHandler}>
-                <Text style={styles.btntxt}>Save Product!</Text> 
+            <Button mode="contained" color={Colors.warning1} icon={()=><Entypo name='save' size={14} color='white'/>} style={styles.button} onPress={saveEditsHandler}>
+                <Text style={styles.btntxt}>Save Edits!</Text> 
             </Button>
         </ScrollView>
     )
 }
 
-export default AddProductsScreen
+export default EditProductScreen
 
 const styles = StyleSheet.create({
     container:{

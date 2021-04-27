@@ -5,6 +5,7 @@ import OrdersCard from '../components/OrdersCard';
 
 const OrdersScreen = () => {
     const orders = useSelector(state => state.ordersSlice.orders);
+    console.log(orders);
     return (
         <SafeAreaView>
             <FlatList

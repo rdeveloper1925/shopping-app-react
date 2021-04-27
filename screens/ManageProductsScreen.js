@@ -5,7 +5,6 @@ import ManageCard from '../components/ManageCard'
 
 const ManageProductsScreen = ({navigation}) => {
     const userProducts = useSelector(state => state.productsSlice.userProducts);
-    console.log(userProducts)
     return (
         <FlatList
             data={userProducts}

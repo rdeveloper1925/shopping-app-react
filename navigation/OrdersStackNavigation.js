@@ -14,7 +14,7 @@ const OrdersStackNavigation = ({navigation}) => {
             <OrderStack.Screen name="My Orders" component={OrdersScreen} options={{
                 headerLeft:()=>(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                        <Item iconName='file-tray-stacked' title="Drawer" color="white" onPress={()=>navigation.toggleDrawer()}/>
+                        <Item iconName='menu' title="Drawer" color="white" onPress={()=>navigation.toggleDrawer()}/>
                     </HeaderButtons>
                 )
             }}/>

@@ -1,16 +1,22 @@
 import * as React from 'react';
+import {useDispatch} from 'react-redux';
 import { Button, Card, TouchableRipple, Text } from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import {Colors} from '../constants/Colors'
 import { Feather } from '@expo/vector-icons'; 
+import { deleteProduct } from '../store/actions/ProductActions';
 
 const ManageCard = (props) =>{
+    const dispatch=useDispatch();
     const editHandler=()=>{
-        props.navigation.navigate('Add Products',{itemTitle:'Edit Product',product:props.product});
+        props.navigation.navigate('Edit Product',{itemTitle:'Edit Product',product:props.product});
     }
 
     const deleteHandler=()=>{
-        let deleteItem = confirm("Are you sure? ");
+        let deleteItem = confirm("Are you sure you wanna delete "+props.product.title+"?");
+        if (deleteItem){
+            dispatch(deleteProduct(props.product.id));
+        }
     }
     return (
         <Card style={styles.card}>
