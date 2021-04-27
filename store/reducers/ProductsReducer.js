@@ -54,16 +54,10 @@ const ProductsReducer=(state=initialState, action)=>{
         case DELETE_PRODUCT:
             let currentAvailableProducts=[...state.availableProducts];
             let currentUserProducts=[...state.userProducts];
-            let indexInAvailable= currentAvailableProducts.findIndex(product=>product.id==action.id);
-            let indexInUserProducts=currentUserProducts.findIndex(product=>product.id==action.id);
-
-            currentAvailableProducts.slice(indexInAvailable,1);
-            currentUserProducts.slice(indexInUserProducts,1);
-
             return {
                 ...state,
-                availableProducts:currentAvailableProducts,
-                userProducts:currentUserProducts
+                availableProducts:currentAvailableProducts.filter(product=>product.id!==action.id),
+                userProducts:currentUserProducts.filter(product=>product.id!==action.id)
             }
 
         default:
