@@ -15,7 +15,7 @@ const CartListItem = (props) => {
                     <Text style={styles.ttl2}>{props.quantity} pc</Text>
                 </View>
                 <View style={[styles.info,{maxWidth:'20%'}]}>
-                    <Text style={[styles.ttl,{color:Colors.accent3}]}>${props.sum.toFixed(2)}</Text>
+                    <Text style={[styles.ttl,{color:Colors.accent3}]}>${parseFloat(props.sum).toFixed(2)}</Text>
                 </View>
                 <View style={[styles.info,{maxWidth:'20%',marginLeft:4}]}>
                     <Entypo onPress={()=>dispatch(deleteFromCart(props.id))} name='trash' color='red' size={21}/>

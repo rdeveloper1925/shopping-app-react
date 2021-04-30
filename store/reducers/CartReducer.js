@@ -17,7 +17,7 @@ const initialState={
                     state.selectedItems[product.id].quantity+1,
                     product.title,
                     product.price,
-                    state.selectedItems[product.id].sum+product.price,
+                    state.selectedItems[product.id].sum+parseFloat(product.price),
                     product.imageUrl
                 )
                 return {
@@ -78,9 +78,9 @@ export default CartReducer;
 const sumFinder=(items)=>{
     let total=0;
     Object.entries(items).map(([key,value])=>{
-        total=total+value.sum
+        total=total+parseFloat(value.sum)
     })
-    return total.toFixed(2);
+    return parseFloat(total).toFixed(2);
 }
 
 class CartItem{

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { ScrollView, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { View, StyleSheet, FlatList, SafeAreaView, ActivityIndicator, Text } from 'react-native';
 import ProductCard from '../components/Card';
 import { addToCart } from '../store/actions/CartActions';
 import { Snackbar } from 'react-native-paper';
 import {Ionicons} from '@expo/vector-icons';
 import { Colors } from '../constants/Colors';
+import { fetchProducts } from '../store/actions/ProductActions';
 
 const ProductsScreen = ({navigation}) => {
+    const [isLoading, setIsLoading] = useState(false);
     const products = useSelector(state => state.productsSlice.availableProducts);
 
     const viewDetailsHandler=(title,id)=>{
@@ -20,6 +22,32 @@ const ProductsScreen = ({navigation}) => {
     const addToCartHandler=(product)=>{
         dispatch(addToCart(product));
     }
+
+    useEffect(()=>{
+        const loadProducts = async ()=>{
+            setIsLoading(true);
+            await dispatch(fetchProducts());
+            setIsLoading(false);
+        }
+        loadProducts()
+    },[dispatch]);
+
+    if (isLoading){
+        return (
+            <View style={{justifyContent:'center',flex:1,alignItems:'center'}}>
+                <ActivityIndicator color={Colors.accent3} size='large'/>
+            </View>
+        )
+    }
+
+    if(!isLoading && products.length===0){
+        return (
+            <View style={{justifyContent:'center',flex:1,alignItems:'center'}}>
+                <Text>No Items were found. sorry</Text>
+            </View>
+        )
+    }
+
     return (
         <SafeAreaView>
             <FlatList

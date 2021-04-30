@@ -4,11 +4,12 @@ import { StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigation from './navigation/DrawerNavigation';
 import AppLoading from 'expo-app-loading';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
 import ProductsReducer from './store/reducers/ProductsReducer';
 import CartReducer from './store/reducers/CartReducer';
 import OrdersReducer from './store/reducers/OrdersReducer';
+import ReduxThunk from 'redux-thunk'
 
 
 export default function App() {
@@ -28,7 +29,9 @@ export default function App() {
     cartSlice:CartReducer,
     ordersSlice:OrdersReducer
   });
-  const store=createStore(rootReducer);
+
+  //enabling redux thunk using apply middleware
+  const store=createStore(rootReducer,applyMiddleware(ReduxThunk));
   
 
   return (

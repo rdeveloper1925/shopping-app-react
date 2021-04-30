@@ -1,17 +1,27 @@
 import PRODUCTS from "../../models/Products";
-import {ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT} from '../actions/ProductActions';
+import {ADD_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT, FETCH_PRODUCTS} from '../actions/ProductActions';
 import {Product} from "../../models/Products";
 
 
 const initialState={
-    availableProducts: PRODUCTS,
-    userProducts: PRODUCTS.filter(product=>product.ownerId==='u1')
+    availableProducts: [],
+    userProducts: []
 }
 
 const ProductsReducer=(state=initialState, action)=>{
     //console.log(PRODUCTS);
     switch(action.type){
+        case FETCH_PRODUCTS:
+            console.log('fetching')
+            return {
+                ...state,
+                availableProducts:action.products,
+                userProducts: action.products.filter(product=>product.ownerId==='u1')
+            }
+
         case ADD_PRODUCT:
+            console.log(action.newId);
+            action.product.id=action.newId;
             let updatedProducts=[...state.availableProducts];
             let updatedUserProducts=[...state.userProducts];
             updatedProducts.push(action.product);

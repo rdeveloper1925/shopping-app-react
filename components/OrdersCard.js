@@ -59,7 +59,7 @@ const TheItem=props=>{
                 <Text style={styles.ttl2}>{props.quantity} pcs</Text>
             </View>
             <View style={{alignItems:'center',justifyContent:'center'}}>
-                <Text style={styles.amount}>$ {props.sum.toFixed(2)}</Text>
+                <Text style={styles.amount}>$ {parseFloat(props.sum).toFixed(2)}</Text>
             </View>
         </View>
     )
