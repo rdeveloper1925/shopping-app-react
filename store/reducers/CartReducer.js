@@ -11,15 +11,16 @@ const initialState={
     switch(action.type){
         case ADD_TO_CART:
             const product=action.product;
-
+            console.log('1.',product)
             if(state.selectedItems[product.id]){
                 const newItem=new CartItem(
                     state.selectedItems[product.id].quantity+1,
                     product.title,
                     product.price,
-                    state.selectedItems[product.id].sum+parseFloat(product.price),
+                    parseFloat(state.selectedItems[product.id].sum)+parseFloat(product.price),
                     product.imageUrl
                 )
+                console.log('existing',newItem);
                 return {
                     ...state,//spread the state
                     selectedItems:{...state.selectedItems, [product.id]:newItem}, //override the property
@@ -27,6 +28,7 @@ const initialState={
                 }
             }else{
                 const newItem=new CartItem(1,product.title,product.price,product.price,product.imageUrl);
+                console.log('new item',newItem);
                 return {
                     ...state,
                     selectedItems:{...state.selectedItems, [product.id]:newItem},
