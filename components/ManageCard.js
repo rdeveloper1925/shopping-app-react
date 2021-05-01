@@ -13,10 +13,12 @@ const ManageCard = (props) =>{
     }
 
     const deleteHandler=()=>{
-       Alert.alert('Are you sure?',"Are you sure you wanna delete "+props.product.title+"?",[
+        alert("are you sure?")
+        dispatch(deleteProduct(props.product.id))
+       /*Alert.alert('Are you sure?',"Are you sure you wanna delete "+props.product.title+"?",[
            {text:"No", style:'default'},
            {text:"Yes",style:'destructive',onPress:()=>dispatch(deleteProduct(props.product.id))}
-       ])
+       ])*/
     }
     return (
         <Card style={styles.card}>

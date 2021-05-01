@@ -14,7 +14,7 @@ export const fetchProducts=()=>{
         axios.get(
             'https://shopping-app-803dd-default-rtdb.europe-west1.firebasedatabase.app/products.json'
         ).then(response=>{
-            console.log(response)
+            console.log(response);
             let loadedProducts=[];
             Object.entries(response.data).forEach(([key,value])=>{
                 let p=new Product(
@@ -27,9 +27,11 @@ export const fetchProducts=()=>{
                 )
                 loadedProducts.push(p);
             })
-            console.log('loaded',loadedProducts);
             dispatch({type:FETCH_PRODUCTS,products:loadedProducts})
-        }).catch(e=>console.log(e))
+        }).catch(e=>{
+            alert(e.message+".. Unable to continue");
+            throw e;
+        })
         
     }
 }
@@ -48,7 +50,7 @@ export const addProduct=(product)=>{
             }
         ).then(response=>{
             console.log(response);
-            alert(response.statusText);
+            alert("Product added successfully!");
 
             dispatch(
                 {type:ADD_PRODUCT,product:product,newId:response.data.name}
@@ -61,9 +63,34 @@ export const addProduct=(product)=>{
 }
 
 export const editProduct=(title,price,description,id)=>{
-    return {type:EDIT_PRODUCT,title:title,price:price,description:description,id:id};
+    return (dispatch)=>{
+        axios.patch(
+            `https://shopping-app-803dd-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`,
+            {
+                title:title,
+                description:description,
+                price:price
+            }
+        ).then(response=>{
+            alert('Product has been updated successfully! '+response.data.title);
+        })
+        .catch(e=>console.log(e.message))
+        return {type:EDIT_PRODUCT,title:title,price:price,description:description,id:id};
+    }
+    
 }
 
 export const deleteProduct=(id)=>{
-    return {type:DELETE_PRODUCT, id:id}
+    return (dispatch)=>{
+        axios.delete(
+            `https://shopping-app-803dd-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`
+        ).then(response=>{
+            console.log(response);
+        }).catch(e=>{
+            console.log(e.message);
+        })
+
+        return {type:DELETE_PRODUCT, id:id}
+    }
+    
 }

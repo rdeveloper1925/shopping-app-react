@@ -14,7 +14,7 @@ const OrdersReducer = (state=initialState, action)=>{
             const newOrder= new Order(
                 date.getTime(),
                 action.sum,
-                dateFormat(new Date(),"dddd, mmm dS, yyyy, HH:MM"),
+                dateFormat(new Date(),"dd-mmm-yy, HH:MM"),
                 action.order
             )
             currentOrders.push(newOrder)

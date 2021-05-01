@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { View, StyleSheet, FlatList, SafeAreaView, ActivityIndicator, Text } from 'react-native';
+import { View, StyleSheet, FlatList, SafeAreaView, ActivityIndicator, Text, Button, SliderComponent } from 'react-native';
 import ProductCard from '../components/Card';
 import { addToCart } from '../store/actions/CartActions';
 import { Snackbar } from 'react-native-paper';
@@ -9,8 +9,8 @@ import { Colors } from '../constants/Colors';
 import { fetchProducts } from '../store/actions/ProductActions';
 
 const ProductsScreen = ({navigation}) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const products = useSelector(state => state.productsSlice.availableProducts);
+    const [isLoading, setIsLoading] = useState(true);
+    let products = useSelector(state => state.productsSlice.availableProducts);
 
     const viewDetailsHandler=(title,id)=>{
         console.log({itemTitle:title,itemId:id})
@@ -23,27 +23,27 @@ const ProductsScreen = ({navigation}) => {
         dispatch(addToCart(product));
     }
 
-    useEffect(()=>{
-        const loadProducts = async ()=>{
-            setIsLoading(true);
-            await dispatch(fetchProducts());
-            setIsLoading(false);
-        }
-        loadProducts()
-    },[dispatch]);
-
-    if (isLoading){
-        return (
-            <View style={{justifyContent:'center',flex:1,alignItems:'center'}}>
-                <ActivityIndicator color={Colors.accent3} size='large'/>
-            </View>
-        )
+    const loadProducts =()=>{
+        setIsLoading(true);
+        dispatch(fetchProducts());
+        setIsLoading(false);
     }
+
+    useEffect(()=>{
+        
+        loadProducts();
+    },[]);
+
+    useEffect(()=>{
+        const focus= navigation.addListener('focus',loadProducts);
+        return focus;
+    },[loadProducts])
 
     if(!isLoading && products.length===0){
         return (
             <View style={{justifyContent:'center',flex:1,alignItems:'center'}}>
-                <Text>No Items were found. sorry</Text>
+                <ActivityIndicator color={Colors.accent3} size='large'/>
+                <Text>Loading....</Text>
             </View>
         )
     }
